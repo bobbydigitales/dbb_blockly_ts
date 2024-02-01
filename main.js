@@ -103,10 +103,12 @@ let codeWrapper = `export class Script extends UserScriptComponent {
   compiledCode:any = null;
 
   start() {
+    let blocklyCode = \`${sourceCode}\`;
           let start = null;
         let tick = null;
         let onCollisionEnter = null;
-    this.compiledCode = (new Function('Vector3, Euler, start, tick, onCollisionEnter', ` + "`" + sourceCode + "`" + `)).bind(this)(Vector3, Euler, start, tick, onCollisionEnter);
+
+      this.compiledCode = (new Function('Vector3, Euler, start, tick, onCollisionEnter', blocklyCode)).bind(this)(Vector3, Euler, start, tick, onCollisionEnter);
 
     if (this.compiledCode) {
       if (typeof this.compiledCode.start === 'function') {
